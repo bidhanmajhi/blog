@@ -26,12 +26,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bidhanblog.apps.BidhanblogConfig',
-    'django.cotrib.sites',
+    'django.contrib.sites',
     'django.contrib.flatpages'
 ]
 
 SITE_ID = 1
-AUTH_USER_MODEL = 'mechinpy.User'
+AUTH_USER_MODEL = 'bidhanblog.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
