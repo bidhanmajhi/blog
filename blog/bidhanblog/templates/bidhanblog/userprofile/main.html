@@ -1,0 +1,170 @@
+<div class="content-box-header">
+    <!-- pass -->
+</div>
+
+{% for post in user_post %}
+<div class="content-box">
+    <!-- content title -->
+    <a class="content-title" href="{% url 'mechinpy:detail' post.slug %}">
+        {{post.title|title}}
+    </a>
+
+    <div class="content-detail">
+
+        <!-- content category -->
+        <div class="content-category">
+        {{post.category.name}}
+        </div>
+
+        <!-- content author -->
+        <div class="content-author">
+        {{post.author.get_full_name}}
+        </div>
+
+    </div>
+
+    <!-- content buttons -->
+    <div class="content-button">
+        <!-- comment -->
+        <span class="left-button buttonspan"> 
+            {{post.comments.count}}  Engagement{{post.comments.count|pluralize}}
+        </span>
+
+        {% if not request.user == post.author %}
+        <!-- report -->
+        <a class="right-button buttonspan">
+            Report
+        </a>
+
+        <!-- share -->
+        <a class="right-button buttonspan">
+            Share
+        </a>
+        {% else %}
+        <!-- Delete Post -->
+        <a class="right-button buttonspan" href="{% url 'mechinpy:deletepost' post.slug %}">
+            Delete
+        </a>
+
+        <!-- Edit Post -->
+        <a class="right-button buttonspan"  href="{% url 'mechinpy:deletepost' post.slug %}">
+            Edit
+        </a>
+        {% endif %}
+
+
+
+        
+    </div>
+
+</div>
+{% empty %}
+<div class="content-box">
+    <span class="content-title" style="text-align:center;"> Nothing Yet </span>
+</div>
+{% endfor %}
+
+<style>
+/* content box header */
+.content-box-header{
+    float: left;
+    width: 100%;
+    height: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/* content box */
+.content-box{
+    float: left;
+    height: auto;
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    background-color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #dddddd;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+        
+        /* content title */
+        .content-title{
+            float: left;
+            width: 100%;
+            height: auto;
+            text-decoration: none;
+            color: #003c2d;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        /* content detail */
+        .content-detail{
+            float: left;
+            width: 100%;
+            height: 16px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+                    
+                    /* content category */
+                    .content-category{
+                        float: left;
+                        width: auto;
+                        max-width: 50px;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        height: 100%;
+                        background-color: #003c2d;
+                        color: white;
+                        font-size: 13px;
+                        font-family: 'Roboto', sans-serif;
+                        border-radius: 4px;
+                    }
+
+                    .content-author{
+                        float: left;
+                        width: auto;
+                        max-width: 500px;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        height: 100%;
+                        text-decoration: none;
+                        font-size: 13px;
+                        font-family: 'Roboto', sans-serif;
+                    }
+
+        /* content buttons */
+        .content-button{
+            float: left;
+            width: 100%;
+            height: 14px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+                    /* buttonspan */
+                    .buttonspan{
+                        width: auto;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        height: 100%;
+                        font-size: 12px;
+                        font-family: 'Roboto', sans-serif;
+                        text-decoration: none;
+                    }
+                    .left-button{
+                        float: left;
+                        color: #3a3a3a;
+                    }
+                    .right-button{
+                        float: right;
+                        color: #a3a3a3;
+                    }
+                    .right-button:hover{
+                        color: #3a3a3a;
+                    }
+
+</style>

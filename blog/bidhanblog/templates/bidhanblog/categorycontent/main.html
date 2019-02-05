@@ -1,0 +1,176 @@
+<div class="category-header">
+    <img class="category-header-img" src="{{category.thumbnail.url}}">
+    <div class="category-header-detail">
+        {{category.detail|safe}}
+    </div>
+</div>
+
+{% for post in category.postcategory.all|dictsortreversed:"date"%}
+<div class="content-box">
+    <!-- content title -->
+    <a class="content-title" href="{% url 'mechinpy:detail' post.slug %}">
+        {{post.title|title}}
+    </a>
+
+    <div class="content-detail">
+
+        <!-- content category -->
+        <div class="content-category">
+        {{post.category.name}}
+        </div>
+
+        <!-- content author -->
+        <div class="content-author">
+        {{post.author.get_full_name}}
+        </div>
+
+    </div>
+
+    <!-- content buttons -->
+    <div class="content-button">
+        <!-- comment -->
+        <span class="comment-button buttonspan"> 
+            {{post.comments.count}}  Comment{{post.comments.count|pluralize}}
+        </span>
+
+        <!-- report -->
+        <span class="report-button buttonspan">
+            Report
+        </span>
+
+        <!-- share -->
+        <span class="share-button buttonspan">
+            Share
+        </span>
+        
+    </div>
+
+</div>
+{% empty %}
+
+No posts
+
+{% endfor %}
+
+<style>
+/* category header */
+.category-header{
+    float: left;
+    height: auto;
+    width: 100%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-bottom: 10px;
+}
+
+        /* category header img */
+        .category-header-img{
+            float: left;
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+        }
+
+        /* category header detail */
+        .category-header-detail{
+            float: left;
+            width: 600px;
+            padding: 10px 20px 10px 20px;
+            margin-left: 20px;
+            height: 80px;
+            font-size: 13px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+
+/* content box */
+.content-box{
+    float: left;
+    height: auto;
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 1px solid #dddddd;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+    background-color: white;
+    border-radius: 4px;
+}
+        
+        /* content title */
+        .content-title{
+            float: left;
+            width: 100%;
+            height: auto;
+            text-decoration: none;
+            color: #003c2d;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        /* content detail */
+        .content-detail{
+            float: left;
+            width: 100%;
+            height: 16px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+                    
+                    /* content category */
+                    .content-category{
+                        float: left;
+                        width: auto;
+                        max-width: 50px;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        height: 100%;
+                        background-color: #003c2d;
+                        color: white;
+                        font-size: 13px;
+                        font-family: 'Roboto', sans-serif;
+                        border-radius: 4px;
+                    }
+
+                    .content-author{
+                        float: left;
+                        width: auto;
+                        max-width: 500px;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        height: 100%;
+                        text-decoration: none;
+                        font-size: 13px;
+                        font-family: 'Roboto', sans-serif;
+                    }
+
+        /* content buttons */
+        .content-button{
+            float: left;
+            width: 100%;
+            height: 14px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+                    /* buttonspan */
+                    .buttonspan{
+                        width: auto;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        height: 100%;
+                        font-size: 12px;
+                        font-family: 'Roboto', sans-serif;
+                    }
+                    .comment-button{
+                        float: left;
+                    }
+                    .report-button{
+                        float: right;
+                    }
+                    .share-button{
+                        float: right;
+                    }
+
+</style>

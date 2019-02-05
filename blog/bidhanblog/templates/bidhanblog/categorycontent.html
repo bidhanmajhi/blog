@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}
+Mechinpy - {{category.name|capfirst}}
+{% endblock %}
+
+{% block content %}
+
+<!-- main container -->
+<div class="content-main">
+    {% include 'bidhanblog/categorycontent/main.html' %}
+</div>
+
+<!-- sidenav container -->
+<div class="content-sidenav">
+    {% include 'bidhanblog/categorycontent/sidenav.html' %}
+</div>
+
+<style>
+/* content main */
+.content-main{
+    float: left;
+    width: 760px;
+    height: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* content sidenav */
+.content-sidenav{
+    float: right;
+    width: 200px;
+    height: auto;
+}
+
+</style>
+
+{% endblock %}

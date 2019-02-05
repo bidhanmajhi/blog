@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}
+{{flatpage.title}}
+{% endblock %}
+
+{% block content %}
+<div class="flatpage-title"> {{flatpage.title}} </div>
+<div class="flatpage-content"> {{flatpage.content}} </div>
+
+<style>
+.flatpage-title{
+    float: left;
+    width: 100%;
+    height: auto;
+    color: #003c2b;
+    font-size: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.flatpage-content{
+    float: left;
+    width: 90%;
+    height: auto;
+    font-size: 16px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 5%;
+    padding-right: 5%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.flatpage-content-header{
+    float: left;
+    width: 100%;
+    height: auto;
+    font-size: 20px;
+    font-family: 'Roboto',sans-serif;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #003c2b;
+    font-weight: bold;
+}
+
+.flatpage-content-subheader{
+    float: left;
+    width: 100%;
+    height: auto;
+    font-size: 18px;
+    font-family: 'Roboto',sans-serif;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.flatpage-content-text{
+    float: left;
+    width: 100%;
+    height: auto;
+    font-size: 13px;
+    font-family: 'Roboto',sans-serif;
+    line-height: 1.4;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.flatpage-content-list{
+    float: left;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 13px;
+    font-family: 'Roboto',sans-serif;
+}
+
+.flatpage-content-link{
+  font-size: 13px;
+  text-decoration: none;
+  color: #003c2b;
+}
+.flatpage-content-img{
+    float: left;
+    width: 100%;
+    height: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    box-shadow: 0 0 1px 1px #fefefe;
+}
+</style>
+{% endblock %}

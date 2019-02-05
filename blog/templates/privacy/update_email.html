@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}
+BidhanBlog - Email Update
+{% endblock %}
+
+{% block content %}
+
+<form class="content-form" action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="content-form-header"> Update Email </div>
+
+    <div class="content-form-block">
+        <div class="content-form-field"> {{form.email}} </div>
+        {% if form.email.errors %}
+        <div class="content-form-error"> Please, check your email and try again. </div>
+        {% endif %}
+    </div>
+
+    <div class="content-form-block">
+        <button class="content-form-button" type="submit"> Update </button>
+    </div>
+</form>
+
+<style>
+.content-form{
+    width: 460px;
+    height: auto;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+    /* content form header */
+    .content-form-header{
+        float: left;
+        width: 100%;
+        height: auto;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 22px;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+    }
+
+    /* content form block */
+    .content-form-block{
+        float: left;
+        width: 100%;
+        height: auto;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+         /* content form field */
+         .content-form-field{
+             float: left;
+             width: 100%;
+             height: auto;
+         }
+             
+             /* email */
+            .update-email{
+                float: left;
+                width: 100%;
+                height: auto;
+                padding: 10px;
+                border: 1px solid #dddddd;
+                border-radius: 5px;
+                outline: none;
+                font-size: 16px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+         /* content form error */
+         .content-form-error{
+             float: left;
+             width: 100%;
+             height: auto;
+             color: darkred;
+             font-size: 13px;
+             font-family: 'Roboto', sans-serif;
+         }
+
+        /* content form button */
+        .content-form-button{
+            float: right;
+            width: 100px;
+            height: 30px;
+            border: none;
+            outline: none;
+            background-color: #003c2b;
+            color: white;
+            border-radius: 15px;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+        }
+    
+</style>
+
+{% endblock %}

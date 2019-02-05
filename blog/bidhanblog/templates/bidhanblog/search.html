@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Mechinpy - Search
+{% endblock %}
+
+{% block content %}
+<div class="search-board">
+    
+    <!-- search form -->
+    <form class="search-form" method="GET" action="" >
+        <!-- search form input -->
+        <input class="search-form-input" type="search" name="q" placeholder="Search Username/Post Here">
+        
+        <!-- search form submit -->
+        <div class="search-form-submit">
+            <button class="search-form-submit-button" type="submit">Search</button>
+        </div>   
+         
+    </form>
+
+    <!-- search header -->
+    <div class="search-result-header">
+        Searching for {{query}}
+    </div>
+    
+    {% for obj in all_search_results %}
+    <div class="search-result">
+
+        <!-- search user -->
+        {% if obj.username %}
+        <div class="search-user-result search-result-object">
+            <a class="search-link" href="{% url 'mechinpy:userprofile' obj.username %}"> {{obj.get_full_name}} @{{obj.username}} </a>
+        </div>
+        {% endif %}
+
+        {% if obj.title %}
+        <!-- search post -->
+        <div class="search-post-result search-result-object">
+            <a class="search-link" href="{% url 'mechinpy:detail' obj.slug %}" > 
+                {{obj.title}} [{{obj.category.name}}]
+            </a>
+        </div>
+        {% endif %}
+
+
+    </div>
+    {% empty %}
+    <div class="search-result">
+        <div class="search-no-result search-result-object">
+            Empty Here
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+<style>
+/* search board */
+.search-board{
+    width: 760px;
+    height: auto;
+}
+
+        /* search form */
+        .search-form{
+            float: left;
+            width: 100%;
+            height: 40px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+            /* search-form-input */
+            .search-form-input{
+                float: left;
+                width: 660px;
+                height: 100%;
+                padding-left: 10px;
+                padding-right: 10px;
+                font-size: 13px;
+                font-family: Arial, Helvetica, sans-serif;
+                border-radius: 10px 0 0 10px;
+                border: 1px solid #dddddd;
+                outline: none;
+            }
+            /* search-form-submit */
+            .search-form-submit{
+                float: left;
+                width: 100px;
+                height: 100%;
+                border-radius: 0 10px 10px 0;
+            }
+                    .search-form-submit-button{
+                        float: left;
+                        width: 100%;
+                        height: 100%;
+                        border: none;
+                        outline: none;
+                        background-color: #003c2d;
+                        color: white;
+                        border-radius: 0 10px 10px 0;
+                        font-size: 14px;
+                        font-family: Arial, Helvetica, sans-serif;
+                    }
+
+        /* search result header */
+        .search-result-header{
+            float: left;
+            width: 96%;
+            padding-left: 2%;
+            padding-right: 2%;
+            height: auto;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+            border-bottom: 1px solid #eeeeee;
+            color: #003c2d;   
+        }
+        
+        
+        /* search result */
+        .search-result{
+            float: left;
+            width: 96%;
+            padding-left: 2%;
+            padding-right: 2%;
+            background-color: white;
+            height: auto;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }            
+            
+            
+            /* search post result */
+            .search-result-object{
+                float: left;
+                width: 100%;
+                height: auto;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                
+            }
+                   
+                    /* search link */
+                    .search-link{
+                        float: left;
+                        width: 100%;
+                        height: auto;
+                        text-decoration: underline;
+                        text-decoration-color: #bbbbbb;
+                        color: #333333;
+                        font-size: 15px;
+                        font-family: Arial, Helvetica, sans-serif;
+                    }
+
+                    /* search no result */
+                    .search-no-result{
+                        font-size: 14px;
+                        font-family: Arial, Helvetica, sans-serif;
+                        text-align: center;
+                    }
+</style>
+
+{% endblock %}

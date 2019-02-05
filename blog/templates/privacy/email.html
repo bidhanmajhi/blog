@@ -1,0 +1,20 @@
+{% autoescape off %}
+You are updating your email address
+
+Your username - 
+'{{ user.username }}'
+
+Please click on the link below to confirm your email:
+
+http://{{ domain }}{% url 'mechinpy:update-email' uidb64=uid token=token %}
+
+
+Please, do not reply to this email, the inbox is not monitored. 
+
+If you are having any problem, please contact us in support@mechinpy.com,
+we will get back to you as soon as possible.
+
+Not you? Report it here. 
+
+Bidhan Blog
+{% endautoescape %}

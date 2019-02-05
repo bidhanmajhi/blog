@@ -1,0 +1,165 @@
+<!-- header content -->
+<div class="header-content">
+    <!-- header left / Logo -->
+    <a class="header-left" href="{% url 'bidhanblog:home' %}">
+        <!-- {% load static %}
+        <img class="logo" src="{% static '/mechinpy/image/logo.png' %}"> -->
+    </a>
+
+    <!-- header right / Profile buttons -->
+    <div class="header-right">
+        <!-- side nav button -->
+        <button class="header-button menu-button material-icons"> menu </button>
+
+        <!-- profile dropdown -->
+        <button class="header-button profile-button">
+            {% if user.avatar %}
+            <img class="profile-picture" src="{{user.avatar.url}}">
+            {% endif %}
+        </button>
+
+        <!-- notification dropdown -->
+        <button class="header-button notification-button material-icons"> notifications </button>
+
+        <!-- search button -->
+        <button class="header-button search-button material-icons"> search </button>
+
+        <!-- Dropdown boxes -->
+        <!-- profile dropdown -->
+        <div class="header-button-dropdown profile-dropdown">
+            <a class="dropdown-content  profile-dropdown-content"> Profile </a>
+
+            <a class="dropdown-content  profile-dropdown-content"> About </a>
+
+            <a class="dropdown-content  profile-dropdown-content"> Settings </a>
+
+            <a class="dropdown-content  profile-dropdown-content"> Logout </a>
+        </div>
+
+        <!-- menu dropdown -->
+        <div class="header-button-dropdown menu-dropdown">
+
+            <a class="dropdown-content"></a>
+
+            <a class="dropdown-content"></a>
+
+            <a class="dropdown-content"></a>
+
+            <a class="dropdown-content"></a>
+
+            <a class="dropdown-content"></a>
+        </div>
+
+        <!-- notification dropdown -->
+        <div class="header-button-dropdown notification-dropdown">
+
+            <a class="dropdown-content"></a>
+
+            <a class="dropdown-content"></a>
+
+            <a class="dropdown-content"></a>
+        </div>
+    </div>
+</div>
+
+<style>
+/* header content */
+.header-content{
+    width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+}
+
+/* header left */
+.header-left{
+    float: left;
+    width: 200px;
+    height: 100%;
+    outline: none;
+}
+        /* logo */
+        .logo{
+            height: 100%;
+            width: auto;
+        }
+
+
+/* header-right */
+.header-right{
+    float: right;
+    width: 200px;
+    height: 100%;
+}
+        /* header button */
+        /* sidenav, notification, search, profile */
+        .header-button{
+            float: right;
+            height: 100%;
+            width: 50px;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            font-size: 25px;
+        }
+        
+        /* profile button */
+                /* profile picture */
+                .profile-picture{
+                    width: 25px;
+                    height: 25px;
+                    border-radius: 25px;
+                }
+
+        /* header button dropdown */
+        .header-button-dropdown{
+            float: right;
+            height: auto;
+            width: 180px;
+            padding: 10px;
+            min-height: 100px;
+            background-color: white;
+            display: none;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+        }
+               
+                /* dropdown content */
+                .dropdown-content{
+                    float: left;
+                    width: 100%;
+                    height: 16px;
+                    padding-top: 8px;
+                    padding-bottom: 8px;
+                    text-decoration: none;
+                    color: #333333;
+                    text-align: center;
+                    font-size: 15px;
+                    font-family: 'Roboto', sans-serif;
+                    border-radius: 4px;
+                }
+                .dropdown-content:hover{
+                    background-color: lightblue;
+                }
+
+</style>
+
+<script>
+$(document).ready(function(){
+    $('.menu-button').click(function(){
+        $('.menu-dropdown').toggle();
+        $('.profile-dropdown').hide();
+        $('.notification-dropdown').hide();
+    });
+    $('.profile-button').click(function(){
+        $('.profile-dropdown').toggle();
+        $('.menu-dropdown').hide();
+        $('.notification-dropdown').hide();
+    });
+    $('.notification-button').click(function(){
+        $('.notification-dropdown').toggle();
+        $('.profile-dropdown').hide();
+        $('.menu-dropdown').hide();
+    });
+})
+</script>

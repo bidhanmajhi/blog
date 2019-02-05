@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block title %}
+BidhanBlog - Login
+{% endblock %}
+
+{% block content %}
+
+<form class="login-form" method="POST" action="" enctype="multipart/form-data">
+    <div class="login-form-header"> Login to your account </div>
+    {% csrf_token %}
+    <div class="login-form-error"> {{form.errors}} </div>
+    <div class="login-form-error"> {{form.non_field_errors}} </div>
+    {% for message in messages %}
+    <div class="login-form-error"> {{message}} </div>
+    {% endfor %}
+
+    {% for fields in form %}
+    <div class="login-form-field"> {{fields}} </div>
+    {% endfor %}
+
+    <div class="login-form-submit"> 
+        <button class="login-form-submit-button"> Login </button>    
+    </div>
+
+    <div class="login-form-redirects">
+        <!-- signup link -->
+        <div class="login-form-signup">
+            Don't have an account? <a class="login-form-link"> Signup </a>
+        </div>
+
+        <div class="login-form-password">
+            Forgot your password? <a class="login-form-link"> Reset </a>
+        </div>
+    </div>
+</form>
+
+<style>
+/* login form */
+.login-form{
+    float: left;
+    height: auto;
+    width: 60%;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: #ffffff;
+    box-shadow: 0 0 1px 1px #00000010;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+}
+
+        /* login form header */
+        .login-form-header{
+            float: left;
+            height: auto;
+            width: 100%;
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .login-form-error{
+            float: left;
+            height: auto;
+            width: 100%;
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            color: darkred;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            text-decoration: none;
+        }
+
+        .login-form-field{
+            float: left;
+            height: auto;
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+                /* class login */
+                .class-login{
+                    float: left;
+                    width: 100%;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    height: 40px;
+                    font-size: 13px;
+                    border: 1px solid #dddddd;
+                    border-radius: 5px;
+                    font-family: Arial, Helvetica, sans-serif;
+                }
+
+        .login-form-submit{
+            float: left;
+            height: auto;
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+                /* login form submit button */
+                .login-form-submit-button{
+                    float: right;
+                    width: 100px;
+                    height: 30px;
+                    border-radius: 50px;
+                    border: none;
+                    outline: none;
+                    font-size: 13px;
+                    font-family: 'Roboto', sans-serif;
+                    color: white;
+                    background-color: #003c2b;
+                }
+
+        .login-form-redirects{
+            float: left;
+            height: auto;
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+            /* login form signup */
+            .login-form-signup{
+                float: left;
+                height: 30px;
+                width: auto;
+                max-width: 50%;
+                font-size: 12px;
+                font-family: Arial, Helvetica, sans-serif;
+                color: #bbbbbb;
+            }
+
+            .login-form-password{
+                float: right;
+                height: 30px;
+                width: auto;
+                max-width: 50%;
+                font-size: 12px;
+                font-family: Arial, Helvetica, sans-serif;
+                color: #bbbbbb;
+            }
+                    /* login form link */
+                    .login-form-link{
+                        text-decoration: none;
+                        color: #003c2b;
+                    }
+</style>
+
+{% endblock %}

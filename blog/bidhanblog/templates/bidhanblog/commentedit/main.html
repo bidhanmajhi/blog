@@ -1,0 +1,138 @@
+<!-- form content -->
+<form class="form-content" method="POST" action="" enctype="multipart/form-data">
+    <!-- form header -->
+    <div class="form-content-header"> Edit Comment </div>
+    {% csrf_token %}
+
+    <!-- form text -->
+    <div class="form-field">
+        <div class="form-field-block"> {{form.text}} </div>
+        {% if form.text.errors %}
+        <div class="form-field-error"> {{form.text.errors}} </div>
+        {% endif %}
+        {% if form.non_field_errors %}
+        <div class="form-field-error"> {{form.non_field_errors}} </div>
+        {% endif %}
+    </div>
+
+    <!-- form action -->
+    <div class="form-field">
+        <div class="form-field-block"> 
+            <span class="action-button material-icons" title="Add Image"> </span>
+        </div>
+    </div>
+
+    <!-- submit button -->
+    <div class="form-submit">
+        <button class="form-submit-button" type="submit"> Submit </button>
+    </div>
+</form>
+
+<style>
+/* form content */
+.form-content{
+    float: left;
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 1px solid #dddddd;
+    background-color: white;
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+    /* form content header */
+    .form-content-header{
+        float: left;
+        width: 100%;
+        height: auto;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: center;
+        font-size: 18px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* form field */
+    .form-field{
+        float: left;
+        width: 100%;
+        height: auto;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+
+        /* form field block */
+        .form-field-block{
+            float: left;
+            width: 100%;
+            height: auto;
+        }
+
+        /* form field error */
+        .form-field-error{
+            float: left;
+            width: 100%;
+            height: auto;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 12px;
+            font-family: 'Roboto', sans-serif;
+            color: darkred;
+        }
+
+            /* text */
+            .editcommenttext{
+                float: left;
+                width: 100%;
+                height: auto;
+                min-height: 100px;
+                font-size: 13px;
+                font-family: Arial, Helvetica, sans-serif;
+                border: 1px solid #dddddd;
+                outline: none;
+                resize: vertical;
+                padding: 10px;
+            }
+
+        
+        /* form field button */
+            /* image button */
+            .action-button{
+                float: left;
+                width: 30px;
+                height: auto;
+                font-size: 24px;
+                text-align: center;
+                cursor: default;
+                border: none;
+                outline: none;
+                color: #003c2b;
+            }
+        
+    /* form submit */
+    .form-submit{
+        float: left;
+        width: 100%;
+        height: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+            /* submit button */
+            .form-submit-button{
+                float: right;
+                width: 100px;
+                height: 100%;
+                border: none;
+                outline: none;
+                background-color: #003c2b;
+                color: white;
+                font-size: 13px;
+                font-family: Arial, Helvetica, sans-serif;
+                border-radius: 30px;
+            }
+
+</style>

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Mechinpy - Delete {{post.title}}
+{% endblock %}
+
+{% block content %}
+
+<form class="delete-form" method="POST">
+    {% csrf_token %}
+    <div class="delete-form-error"> {{form.errors}} </div>
+    <div class="delete-form-error"> {{form.non_field_errors}} </div>
+    {% for message in messages %}
+    <div class="delete-form-error"> {{message}} </div>
+    {% endfor %}
+
+    <div class="delete-form-field"> Are you sure to delete '{{post.title}}' </div>
+
+
+    <div class="delete-form-submit"> 
+        <button class="delete-form-submit-button"> Delete </button>    
+    </div>
+</form>
+
+<style>
+/* delete form */
+.delete-form{
+    float: left;
+    height: auto;
+    width: 60%;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: #ffffff;
+    box-shadow: 0 0 1px 1px #00000010;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+}
+
+        .delete-form-error{
+            float: left;
+            height: auto;
+            width: 100%;
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            color: darkred;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            text-decoration: none;
+        }
+
+        .delete-form-field{
+            float: left;
+            height: auto;
+            width: 100%;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            font-size: 15px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .delete-form-submit{
+            float: left;
+            height: auto;
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+                /* login form submit button */
+                .delete-form-submit-button{
+                    float: right;
+                    width: 100px;
+                    height: 30px;
+                    border-radius: 50px;
+                    border: none;
+                    outline: none;
+                    font-size: 13px;
+                    font-family: 'Roboto', sans-serif;
+                    color: white;
+                    background-color: #003c2b;
+                }
+
+</style>
+
+{% endblock %}

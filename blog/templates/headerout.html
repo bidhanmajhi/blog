@@ -1,0 +1,56 @@
+<!-- header content -->
+<div class="header-content">
+    <!-- header left / Logo -->
+    <a class="header-left" href="{% url 'bidhanblog:home' %}">
+        <!-- {% load static %}
+        <img class="logo" src="{% static 'mechinpy/image/logo.png' %}"> -->
+    </a>
+
+    <!-- header right / Profile buttons -->
+    <div class="header-right">
+        <!-- search button -->
+        <button class="header-button search-button material-icons"> search </button>
+    </div>
+</div>
+
+<style>
+/* header content */
+.header-content{
+    width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+}
+
+/* header left */
+.header-left{
+    float: left;
+    width: 200px;
+    height: 100%;
+}
+        /* logo */
+        .logo{
+            height: 100%;
+            width: auto;
+        }
+
+
+/* header-right */
+.header-right{
+    float: right;
+    width: 200px;
+    height: 100%;
+}
+        /* header button */
+        /* sidenav button, notification button, search button */
+        .header-button{
+            float: right;
+            height: 100%;
+            width: 50px;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            font-size: 25px;
+        }
+
+</style>

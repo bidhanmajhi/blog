@@ -1,0 +1,596 @@
+<!-- content title -->
+<div class="content-title">
+    {{post.title|title}}
+</div>
+
+<!-- content text -->
+<div class="content-text">
+    {{post.text|linebreaks}}
+</div>
+
+<!-- content image if any -->
+{% if post.image %}
+<div class="content-image">
+    <img src="{{post.image.url}}" alt="Image" class="content-image-url">
+</div>
+{% endif %}
+
+<!-- content detail -->
+<div class="content-detail">
+    <!-- content tag -->
+    <span class="content-tag">
+        {{post.category.name|capfirst}}
+    </span>
+
+    <!-- content date -->
+    <span class="content-date">
+        {{post.date}}
+    </span>
+</div>
+
+<!-- content action -->
+<div class="content-action">
+    <!-- only for content author -->
+        <!-- content edit button -->
+        {% if post.author == request.user %}
+        <a class="content-edit action-link" href="{% url 'mechinpy:editpost' post.slug %}"> Edit </a>
+        
+        <!-- content delete button -->
+        <a class="content-delete action-link" href="{% url 'mechinpy:deletepost' post.slug %}" > Delete </a>
+        {% else %}
+    
+    <!-- other user -->
+        <!-- content flag -->
+        <a class="content-flag action-link"> Flag </a>
+
+        <!-- content share -->
+        <a class="content-share action-link"> Share </a>
+        {% endif %}
+    
+        <!-- user -->
+        <a class="user-profile-link" href="{% url 'mechinpy:userprofile' post.author.username %}">
+            <button class="content-user">
+                <!-- user avatar -->
+                {% if post.author.avatar %}
+                <img class="user-avatar" src="{{post.author.avatar.url}}">
+                {% else %}
+                <img class="user-avatar">
+                {% endif %}
+
+                <!-- user name -->
+                <span class="user-name">
+                    {{post.author.get_full_name}}
+                </span>
+            </button>
+        </a>
+
+</div>
+
+<!-- comment section -->
+
+<!-- comment header -->
+<div class="comment-header">
+    
+</div>
+
+{% for comment in all_post_comment %}
+<!-- all comments -->
+<div class="comment-content">
+    <!-- comment text -->
+    <span class="comment-text">
+        {{comment.text|linebreaks}}
+    </span>
+
+    <!-- comment detail -->
+    <div class="comment-detail">
+        <!-- comment-button -->
+        {% if comment.author == request.user %}
+        <a class="comment-edit action-link" href="{% url 'mechinpy:editcomment' post.slug comment.pk %}"> Edit </a>
+
+        <a class="comment-delete action-link" href="{% url 'mechinpy:deletecomment' post.slug comment.pk %}" > Delete </a>
+        {% endif %}
+
+        <a class="comment-reply action-link"> {{comment.children.count}} Reply </a> 
+
+        <!-- comment-user -->
+        <a class="user-profile-link" href="{% url 'mechinpy:userprofile' comment.author.username %}" >
+            <button class="content-user">
+                <!-- user avatar -->
+                {% if comment.author.avatar %}
+                <img class="user-avatar" src="{{comment.author.avatar.url}}">
+                {% else %}
+                <img class="user-avatar">
+                {% endif %}
+
+                <!-- user name -->
+                <span class="user-name">
+                    {{comment.author.get_full_name}}
+                </span>
+            </button>
+        </a>
+
+    </div>
+</div>
+
+<!-- comment reply -->
+<div class="comment-reply-content">
+    <!-- add comment reply hidden box -->
+    
+    <div class="add-comment-reply">
+        <!-- comment reply form -->
+        {% for form in commentreplyform %}
+        <form class="comment-reply-form" method="POST" action="" enctype="multipart/form-data">          
+            {% csrf_token %}
+            {% for field in form %}
+            <input type="hidden" name="parent_id" value="{{ comment.id }}">
+            <div class="comment-reply-form-field"> {{field}} </div>
+            {% endfor %}
+            <button class="comment-reply-button" type="submit"> Reply </button>
+        </form>
+        
+        <!-- comment reply button -->
+        {% endfor %}
+    </div>
+
+    <div class="add-comment-reply-enter">
+        PRESS ENTER TO ADD REPLY
+    </div>
+
+    <!-- all comment reply -->
+ 
+    <div class="all-comment-reply">
+        <!-- show all comment reply -->
+        <div class="show-all-comment-reply">
+            Show All Replies {{comment.children.count}}
+        </div>
+
+        <!-- comment reply navs -->
+        {% for obj in comment.children.all %}
+        <div class="comment-reply-navs">
+            {{obj.chartext}} - <i>{{obj.author.get_full_name}}</i>
+            {% if obj.author == request.user %}
+            <a class="comment-reply-delete-button" href="{% url 'mechinpy:deletecomment' obj.post.slug obj.pk %}">Delete</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% empty %}
+<div class="comment-content">
+    <!-- comment text -->
+    <span class="comment-text-empty">
+        This is empty!
+    </span>
+</div>
+{% endfor %}
+<!-- add comment -->
+<div class="add-comment">
+    <form class="post-comment-form" method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="post-comment-form-field"> 
+            {{commentform.text}}
+        </div>
+        <div class="post-comment-form-submit">
+            <button type="submit" class="post-comment-form-submit-button"> Submit </button>
+        </div>
+    </form>
+</div>
+
+<style>
+/* content title */
+.content-title{
+    float: left;
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 1px solid #dddddd;
+    border-bottom: none;
+    background-color: white;
+    height: auto;
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #003b2c;
+    border-radius: 4px 4px 0 0;
+}
+
+/* content text */
+.content-text{
+    float: left;
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 1px solid #dddddd;
+    border-top: none;
+    border-bottom: none;
+    background-color: white;
+    height: auto;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* content image */
+.content-image{
+    float: left;
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 1px solid #dddddd;
+    border-top: none;
+    border-bottom: none;
+    height: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: white;
+}
+       /* content image url */
+       .content-image-url{
+           float: left;
+           height: auto;
+           width: 100%;
+       }
+
+/* content detail */
+.content-detail{
+    float: left;
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 1px solid #dddddd;
+    border-top: none;
+    border-bottom: none;
+    background-color: white;
+    height: 16px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+        /* content tag */
+        .content-tag{
+            float: left;
+            width: auto;
+            height: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+            background-color: #003b2c;
+            border-radius: 5px;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            font-size: 13px;
+        }
+        /* content date */
+        .content-date{
+            float: right;
+            width: auto;
+            height: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+        }
+
+/* content action */
+.content-action{
+    float: left;
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 1px solid #dddddd;
+    border-top: none;
+    background-color: white;
+    height: 40px;
+    padding-top: 2px;
+    padding-bottom: 10px;
+    border-radius: 0 0 4px 4px;
+}
+        /* action link */
+        .action-link{
+            float: left;
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            width: auto;
+            height: 16px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #505050;
+        }
+
+        /* user profile link */
+        .user-profile-link{
+            float: right;
+            margin-left: 5px;
+            margin-right: 5px;
+            width: auto;
+            height: 40px;
+            background-color: #eeeeee;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+                /* content user /button/ */
+                .content-user{
+                    border: none;
+                    outline: none;
+                    background-color: transparent;
+                    height: 100%;
+                    width: 100%;
+                    box-shadow: 0 0 1px 1px #eeeeee;
+                }
+                        /* user avatar */
+                        .user-avatar{
+                            float: left;
+                            width: 30px;
+                            height: 30px;
+                            border-radius: 30px;
+                            margin: 5px;
+                        }
+                        /* user name */
+                        .user-name{
+                            float: left;
+                            width: auto;
+                            height: 16px;
+                            margin-top: 12px;
+                            margin-bottom: 12px;
+                            font-size: 12px;
+                            font-family: 'Roboto', sans-serif;
+                        }
+
+/* comment section */
+.comment-header{
+    float: left;
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    background-color: white;
+    height: 30px;
+    background-color: #eeeeee;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* comment content */
+.comment-content{
+    float: left;
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 1px solid #dddddd;
+    border-bottom: none;
+    background-color: white;
+    height: auto;
+    border-radius: 4px 4px 0 0;
+        
+}
+        /* comment text */
+        .comment-text{
+            float: left;
+            width: 100%;
+            height: auto;
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            word-wrap: break-word;
+        }
+
+        .comment-text-empty{
+            float: left;
+            width: 100%;
+            height: auto;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        /* comment detail */
+        .comment-detail{
+            float: left;
+            width: 100%;
+            height: 40px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+/* comment reply content */
+.comment-reply-content{
+    float: left;
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 1px solid #dddddd;
+    border-top: none;
+    background-color: white;
+    height: auto;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-radius: 0 0 4px 4px;
+}
+            /* add comment reply */
+            .add-comment-reply{
+                float: left;
+                width: 100%;
+                height: 35px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+                    /* comment reply form */
+                    .comment-reply-form{
+                        float: left;
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                            /* comment reply form field */
+                            .comment-reply-form-field{
+                                width: 100%;
+                                height: 100%;
+                                float: left;
+                            }
+                                 
+                                 /* text */
+                                .chartext{
+                                    float: left;
+                                    border: none;
+                                    outline: none;
+                                    resize: none;
+                                    width: 100%;
+                                    height: 100%;
+                                    font-size: 13px;
+                                    padding-left: 15px;
+                                    padding-right: 15px;
+                                    font-family: 'Roboto', sans-serif;
+                                    border: 1px solid #dddddd;
+                                    border-radius: 25px;
+                                    
+                                }
+                            
+                    .comment-reply-button{
+                        float: left;
+                        width: 0;
+                        display: none;
+                        height: 100%;
+                        background-color: #003b2c;
+                        border: none;
+                        outline: none;
+                        color: white;
+                        border-radius: 4px;
+                    }
+            
+            /* Add Comment Reply Enter */
+            .add-comment-reply-enter{
+                float: left;
+                width: 90%;
+                padding-left: 2%;
+                height: auto;
+                font-size: 10px;
+                color: #505050;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            
+            /* all comment reply */
+            .all-comment-reply{
+                float: left;
+                width: 100%;
+                height: auto;
+            }
+                    /* show-all-comment-reply */
+                    .show-all-comment-reply{
+                        float: left;
+                        width: 100%;
+                        display: block;
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        height: auto;
+                        font-size: 12px;
+                        color: #969696;
+                        cursor: default;
+                        font-family: 'Roboto', sans-serif;
+                        border-left: 1px solid #dddddd;
+                    }
+                    /* comment reply navs /hidden/ */
+                    .comment-reply-navs{
+                        float: left;
+                        width: 98%;
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        padding-left: 1%;
+                        padding-right: 1%;
+                        border-left: 1px solid #cacaca;
+                        height: auto;
+                        font-size: 12px;
+                        color: #505050;
+                        font-family: 'Roboto', sans-serif;
+                        word-wrap: break-word;
+                        display: none;
+                    }
+                        /* comment reply delete button */
+                        .comment-reply-delete-button{
+                            text-decoration: none;
+                            color: #cccccc;
+                        }
+                        .comment-reply-delete-button:hover{
+                            color: #585858;
+                        }
+
+/* add comment */
+.add-comment{
+    float: left;
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 1px solid #cadadd;
+    background-color: #cadcad;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    border-radius: 4px;
+}
+                 
+    /* post comment form */
+    .post-comment-form{
+        float: left;
+        width: 100%;
+        height: auto;
+    }
+
+            /* post comment form field */
+            .post-comment-form-field{
+                float: left;
+                width: 100%;
+                height: auto;
+            }
+                /* text */
+                .commenttext{
+                    float: left;
+                    width: 100%;
+                    height: auto;
+                    min-height: 50px;
+                    resize: vertical;
+                    border: none;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    font-family: 'Roboto', sans-serif;
+                    padding: 10px;
+                    outline-color: #cccccc;
+                    background-color: #fffefe;
+                }
+
+            /* post-comment-form submit */
+            .post-comment-form-submit{
+                float: left;
+                width: 100%;
+                height: 40px;
+                padding-top: 10px;
+            }
+                    /* post comment form submit */
+                    .post-comment-form-submit-button{
+                        float: right;
+                        width: 100px;
+                        height: 100%;
+                        background-color: #003b2c;
+                        color: white;
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 15px;
+                        border: none;
+                        outline: none;
+                        border-radius: 10px;
+                    }
+</style>
+
+<script>
+$(document).ready(function(){
+    $('.show-all-comment-reply').click(function(){
+        $(this).next('.comment-reply-navs').slideToggle(function(){
+            if ($(this).is(":visible")){
+                $(this).prev('.show-all-comment-reply').text('Hide All Replies');
+            }else{
+                $(this).prev('.show-all-comment-reply').text('Show All Replies');
+            }
+        });
+    });
+})
+</script>
